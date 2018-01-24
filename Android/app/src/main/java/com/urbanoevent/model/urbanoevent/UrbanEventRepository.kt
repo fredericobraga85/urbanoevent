@@ -10,5 +10,5 @@ interface UrbanEventRepository
 {
     fun getUrbanEvent(id: Long): Observable<UrbanoEvent>
     fun getUrbanEventList(): Observable<List<UrbanoEvent>>
-    
+
 }

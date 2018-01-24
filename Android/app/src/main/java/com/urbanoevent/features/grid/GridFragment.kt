@@ -15,6 +15,7 @@ import com.urbanoevent.di.module.GridModule
 import android.arch.lifecycle.ViewModelProviders
 import android.widget.TextView
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
+import kotlinx.android.synthetic.main.fragment_grid.view.*
 
 
 /**
@@ -30,18 +31,18 @@ class GridFragment : Fragment() {
     val app: UrbanoEventApp
         get() = activity.application as UrbanoEventApp
 
-    val component by lazy { app.component.plus(GridModule(this)) }
+//    val component by lazy { app.component.plus(GridModule(this)) }
     private var mModel: GridViewModel? = null
 
     private var mListener: OnFragmentInteractionListener? = null
 
 
-    private  var tvTitle: TextView? = null;
+//    private  var tvTitle: TextView? = null;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        component.inject(this)
+//        component.inject(this)
 
         mModel = ViewModelProviders.of(activity).get(GridViewModel::class.java)
 
@@ -53,12 +54,11 @@ class GridFragment : Fragment() {
 
         val view = inflater!!.inflate(R.layout.fragment_grid, container, false)
 
-        tvTitle = view.findViewById(R.id.tvTitle);
 
         val gridObserver = object : Observer<List<UrbanoEvent>> {
             override fun onChanged(urbanoEventList: List<UrbanoEvent>?) {
 
-                tvTitle?.setText(urbanoEventList?.get(0)?.title)
+                view.tvTitle?.setText(urbanoEventList?.get(0)?.title)
             }
         }
 

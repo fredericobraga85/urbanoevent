@@ -1,6 +1,12 @@
 package com.urbanoevent.di.module
 
+import android.arch.persistence.room.Room
+import android.content.Context
 import com.urbanoevent.application.UrbanoEventApp
+import com.urbanoevent.database.AppDatabase
+import com.urbanoevent.model.urbanoevent.UrbanEventRepository
+import com.urbanoevent.model.urbanoevent.UrbanEventRepositoryImpl
+import com.urbanoevent.model.urbanoevent.UrbanoEventDAO
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -9,8 +15,17 @@ import javax.inject.Singleton
  * Created by cinq on 23/01/18.
  */
 @Module
-class AppModule(val app: UrbanoEventApp) {
+class AppModule(val context: Context) {
 
-    @Provides @Singleton
-    fun provideApp() = app
+    @Provides fun providesAppContext() = context
+
+    @Provides @Singleton fun providesAppDatabase(context: Context):
+            AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "urban_event_db").allowMainThreadQueries().build()
+
+    @Provides fun providesUrbanEventDao(database: AppDatabase) = database.urbanoEventDao()
+
+    @Provides fun providesUrbanEventRepository(urbanEventDao: UrbanoEventDAO) = UrbanEventRepositoryImpl(urbanEventDao)
+
+
+
 }

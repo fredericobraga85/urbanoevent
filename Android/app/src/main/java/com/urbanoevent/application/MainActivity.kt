@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.urbanoevent.R
+import com.urbanoevent.utils.AppNavigatorUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -18,6 +19,7 @@ class MainActivity : BaseAcitivity(), NavigationView.OnNavigationItemSelectedLis
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -30,6 +32,8 @@ class MainActivity : BaseAcitivity(), NavigationView.OnNavigationItemSelectedLis
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        AppNavigatorUtils.openGridFragment(this, Bundle(), R.id.frame_content);
     }
 
     override fun onBackPressed() {

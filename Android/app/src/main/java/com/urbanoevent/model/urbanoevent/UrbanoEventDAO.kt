@@ -1,9 +1,7 @@
 package com.urbanoevent.model.urbanoevent
 
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
+import android.arch.persistence.room.OnConflictStrategy.REPLACE
 
 
 /**
@@ -12,17 +10,24 @@ import android.arch.persistence.room.Query
 @Dao
 interface UrbanoEventDAO {
 
-    @get:Query("SELECT * FROM urbano_events")
-    val all: List<UrbanoEvent>
+//    @get:Query("SELECT * FROM urbano_events")
+//    val all: List<UrbanoEvent>
 
-    @Query("SELECT * FROM urbano_events WHERE uid IN (:ids)")
+
+    @Query("select * from urbano_events")
+    fun getAll(): List<UrbanoEvent>
+
+    @Query("SELECT * FROM urbano_events WHERE id IN (:ids)")
     fun loadAllByIds(ids: IntArray): List<UrbanoEvent>
 
-    @Query("SELECT * FROM urbano_events WHERE title LIKE :title LIMIT 1")
-    fun findByTitle(title: String): UrbanoEvent
+    @Query("select * FROM urbano_events where id = (:id)")
+    fun findById(id: Long): UrbanoEvent
 
-    @Insert
-    fun insertAll(vararg urbanoEvents: UrbanoEvent)
+    @Insert(onConflict = REPLACE)
+    fun insert(urbanoEvent: UrbanoEvent)
+
+    @Update(onConflict = REPLACE)
+    fun update(urbanoEvent: UrbanoEvent)
 
     @Delete
     fun delete(urbanoEvent: UrbanoEvent)
