@@ -2,6 +2,7 @@ package com.urbanoevent.application
 
 import android.app.Application
 import com.urbanoevent.di.component.AppComponent
+import com.urbanoevent.di.component.DaggerAppComponent
 import com.urbanoevent.di.module.AppModule
 
 /**

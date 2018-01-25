@@ -17,7 +17,16 @@ class UrbanEventRepositoryImpl @Inject constructor(val urbanEventDao: UrbanoEven
 
     override fun getUrbanEventList(): Observable<List<UrbanoEvent>> {
 
-        return Observable.just(urbanEventDao.getAll())
+        var urbanEvent = UrbanoEvent()
+        urbanEvent.id = 1
+        urbanEvent.title = "title1"
+        urbanEvent.desc = "Teste1"
+
+
+        var list = listOf(urbanEvent)
+
+
+        return Observable.just(list)
     }
 
 

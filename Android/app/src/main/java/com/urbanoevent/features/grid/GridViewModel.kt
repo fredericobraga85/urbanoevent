@@ -3,6 +3,9 @@ package com.urbanoevent.features.grid
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.MutableLiveData
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
+import io.reactivex.functions.Consumer
+import io.reactivex.internal.util.HalfSerializer.onComplete
+import javax.inject.Inject
 
 
 /**
@@ -11,12 +14,18 @@ import com.urbanoevent.model.urbanoevent.UrbanoEvent
 class GridViewModel: ViewModel()
 {
 
+    @Inject
+    lateinit var gridInteractor: GridInteractor
+
+
     private var urbanoEvent: MutableLiveData<List<UrbanoEvent>>? = null
 
     fun getUrbanoEventList(): MutableLiveData<List<UrbanoEvent>> {
 
         if (urbanoEvent == null) {
             urbanoEvent =  MutableLiveData<List<UrbanoEvent>>();
+
+            loadUrbanoEvents();
         }
 
         return urbanoEvent!!
@@ -24,7 +33,14 @@ class GridViewModel: ViewModel()
 
 
     private fun loadUrbanoEvents() {
-        // Do an asyncronous operation to fetch users.
+
+        gridInteractor
+                .getUrbanEventList()
+                .subscribe({
+                    list: List<UrbanoEvent> ->
+                    this.urbanoEvent!!.postValue(list);
+                })
+
     }
 
 }
