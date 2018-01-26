@@ -13,4 +13,5 @@ import javax.inject.Singleton
 interface GridComponent {
 
     fun inject(fragment: GridFragment)
+
 }

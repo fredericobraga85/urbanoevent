@@ -16,6 +16,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.widget.TextView
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
 import kotlinx.android.synthetic.main.fragment_grid.view.*
+import javax.inject.Inject
 
 
 /**
@@ -31,17 +32,17 @@ class GridFragment : Fragment() {
     val app: UrbanoEventApp
         get() = activity.application as UrbanoEventApp
 
-//    val component by lazy { app.component.plus(GridModule(this)) }
-    private var mModel: GridViewModel? = null
 
-
-
-//    private  var tvTitle: TextView? = null;
+    @Inject
+    lateinit var mModel: GridViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        component.inject(this)
+
+
+        val component by lazy { app.component.inject(GridModule(this)) }
+        component.inject(this)
 
         mModel = ViewModelProviders.of(activity).get(GridViewModel::class.java)
 

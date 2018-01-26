@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created by cinq on 23/01/18.
  */
-open class BaseAcitivity : AppCompatActivity(), LifecycleOwner
+open class BaseActivity : AppCompatActivity(), LifecycleOwner
 {
 
     private var mLifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this);

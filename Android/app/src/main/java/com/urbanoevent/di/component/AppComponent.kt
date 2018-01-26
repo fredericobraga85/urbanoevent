@@ -14,5 +14,5 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(app: UrbanoEventApp)
-//    fun plus(gridModule: GridModule): GridComponent
+    fun inject(gridModule: GridModule): GridComponent
 }

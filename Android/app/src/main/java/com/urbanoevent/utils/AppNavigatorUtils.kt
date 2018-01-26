@@ -1,8 +1,7 @@
 package com.urbanoevent.utils
 
 import android.os.Bundle
-import com.urbanoevent.R
-import com.urbanoevent.application.BaseAcitivity
+import com.urbanoevent.application.BaseActivity
 import com.urbanoevent.features.grid.GridFragment
 
 /**
@@ -12,7 +11,7 @@ class AppNavigatorUtils
 {
     companion object {
 
-        fun openGridFragment(activity: BaseAcitivity, bundle: Bundle, idFrame: Int) {
+        fun openGridFragment(activity: BaseActivity, bundle: Bundle, idFrame: Int) {
             val fragment = GridFragment()
             fragment.setArguments(bundle)
             activity.getSupportFragmentManager().beginTransaction().replace(idFrame, fragment).commit()

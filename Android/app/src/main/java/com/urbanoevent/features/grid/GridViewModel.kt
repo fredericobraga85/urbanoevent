@@ -2,6 +2,7 @@ package com.urbanoevent.features.grid
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.MutableLiveData
+import com.urbanoevent.application.BaseViewModel
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
 import io.reactivex.functions.Consumer
 import io.reactivex.internal.util.HalfSerializer.onComplete
@@ -11,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created by cinq on 23/01/18.
  */
-class GridViewModel: ViewModel()
+class GridViewModel: BaseViewModel()
 {
 
     @Inject
@@ -19,6 +20,11 @@ class GridViewModel: ViewModel()
 
 
     private var urbanoEvent: MutableLiveData<List<UrbanoEvent>>? = null
+
+    init{
+
+
+    }
 
     fun getUrbanoEventList(): MutableLiveData<List<UrbanoEvent>> {
 
