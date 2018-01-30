@@ -17,9 +17,21 @@ import dagger.Provides
 /**
  * Created by cinq on 23/01/18.
  */
-@Module
-class GridModule(val fragment: GridFragment) {
+import android.arch.lifecycle.ViewModel
+import dagger.multibindings.IntoMap
 
-    @Provides fun providesGridInteractor(urbanEventRepository: UrbanEventRepository) : GridInteractor = GridInteractorImpl(urbanEventRepository)
+@Module
+abstract class ViewModelModule {
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey( GridViewModel::class )
+    // Bind your View Model here
+    abstract fun bindMainViewModel( gridViewModel: GridViewModel ): ViewModel
+
+    @Binds
+    abstract fun bindViewModelFactory( factory: ViewModelFactory):
+            ViewModelProvider.Factory
 
 }

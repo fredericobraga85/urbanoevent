@@ -1,6 +1,7 @@
 package com.urbanoevent.features.grid
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -13,8 +14,11 @@ import com.urbanoevent.R
 import com.urbanoevent.application.UrbanoEventApp
 import com.urbanoevent.di.module.GridModule
 import android.arch.lifecycle.ViewModelProviders
+import android.support.design.widget.Snackbar
 import android.widget.TextView
+import com.urbanoevent.application.BaseFragment
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_grid.view.*
 import javax.inject.Inject
 
@@ -27,24 +31,26 @@ import javax.inject.Inject
  * Use the [GridFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class GridFragment : Fragment() {
+class GridFragment : BaseFragment() {
 
     val app: UrbanoEventApp
         get() = activity.application as UrbanoEventApp
 
+    val component by lazy { app.component.plus(GridModule(this)) }
 
-    @Inject
-    lateinit var mModel: GridViewModel
+
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    lateinit var gridViewModel : GridViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        val component by lazy { app.component.inject(GridModule(this)) }
         component.inject(this)
 
-        mModel = ViewModelProviders.of(activity).get(GridViewModel::class.java)
+        gridViewModel =  ViewModelProviders.of(activity, viewModelFactory).get(GridViewModel::class.java)
+
 
     }
 
@@ -61,7 +67,13 @@ class GridFragment : Fragment() {
             }
         }
 
-        mModel!!.getUrbanoEventList().observe(activity, gridObserver);
+
+        view.fab.setOnClickListener { view ->
+
+            gridViewModel.onClickUpdateUrbanoEvent();
+        }
+
+        gridViewModel!!.getUrbanoEventList().observe(activity, gridObserver);
 
         return view;
     }

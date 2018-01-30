@@ -1,40 +1,32 @@
 package com.urbanoevent.features.grid
 
-import android.arch.lifecycle.ViewModel
+
 import android.arch.lifecycle.MutableLiveData
 import com.urbanoevent.application.BaseViewModel
+
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
-import io.reactivex.functions.Consumer
-import io.reactivex.internal.util.HalfSerializer.onComplete
 import javax.inject.Inject
 
 
 /**
  * Created by cinq on 23/01/18.
  */
-class GridViewModel: BaseViewModel()
+class GridViewModel @Inject constructor(
+        private var gridInteractor: GridInteractor): BaseViewModel()
 {
 
-    @Inject
-    lateinit var gridInteractor: GridInteractor
+    private var urbanoEventList: MutableLiveData<List<UrbanoEvent>>? = null
 
-
-    private var urbanoEvent: MutableLiveData<List<UrbanoEvent>>? = null
-
-    init{
-
-
-    }
 
     fun getUrbanoEventList(): MutableLiveData<List<UrbanoEvent>> {
 
-        if (urbanoEvent == null) {
-            urbanoEvent =  MutableLiveData<List<UrbanoEvent>>();
+        if (urbanoEventList == null) {
+            urbanoEventList =  MutableLiveData<List<UrbanoEvent>>();
 
             loadUrbanoEvents();
         }
 
-        return urbanoEvent!!
+        return urbanoEventList!!
     }
 
 
@@ -44,9 +36,18 @@ class GridViewModel: BaseViewModel()
                 .getUrbanEventList()
                 .subscribe({
                     list: List<UrbanoEvent> ->
-                    this.urbanoEvent!!.postValue(list);
+                    this.urbanoEventList!!.postValue(list);
                 })
 
+    }
+
+    fun onClickUpdateUrbanoEvent() {
+
+        gridInteractor.updateUrbanoEvent( "_teste")
+                .subscribe({
+                    list: List<UrbanoEvent> ->
+                    this.urbanoEventList!!.postValue(list);
+                })
     }
 
 }

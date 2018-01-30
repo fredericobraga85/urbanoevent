@@ -17,14 +17,14 @@ import javax.inject.Singleton
 @Module
 class AppModule(val context: Context) {
 
-    @Provides fun providesAppContext() = context
+    @Provides @Singleton fun providesAppContext() = context
 
     @Provides @Singleton fun providesAppDatabase(context: Context):
             AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "urban_event_db").allowMainThreadQueries().build()
 
-    @Provides fun providesUrbanEventDao(database: AppDatabase) = database.urbanoEventDao()
+    @Provides fun providesUrbanEventDao(database: AppDatabase): UrbanoEventDAO = database.urbanoEventDao()
 
-    @Provides fun providesUrbanEventRepository(urbanEventDao: UrbanoEventDAO) = UrbanEventRepositoryImpl(urbanEventDao)
+    @Provides fun providesUrbanEventRepository(urbanEventDao: UrbanoEventDAO): UrbanEventRepository = UrbanEventRepositoryImpl(urbanEventDao)
 
 
 

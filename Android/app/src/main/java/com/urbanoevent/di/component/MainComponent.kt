@@ -1,8 +1,9 @@
 package com.urbanoevent.di.component
 
+import com.urbanoevent.application.MainActivity
 import com.urbanoevent.di.module.GridModule
+import com.urbanoevent.di.module.MainModule
 import com.urbanoevent.features.grid.GridFragment
-import com.urbanoevent.features.grid.GridViewModel
 import dagger.Component
 import dagger.Subcomponent
 import javax.inject.Singleton
@@ -11,10 +12,9 @@ import javax.inject.Singleton
  * Created by cinq on 23/01/18.
  */
 @Singleton
-@Subcomponent(modules = arrayOf(GridModule::class))
-interface GridComponent {
+@Subcomponent(modules = arrayOf(MainModule::class))
+interface MainComponent {
 
-    fun inject(fragment: GridFragment)
-    fun inject(gridViewModel: GridViewModel)
+    fun inject(activity: MainActivity)
 
 }
