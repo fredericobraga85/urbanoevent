@@ -15,10 +15,13 @@ import com.urbanoevent.application.UrbanoEventApp
 import com.urbanoevent.di.module.GridModule
 import android.arch.lifecycle.ViewModelProviders
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.widget.TextView
 import com.urbanoevent.application.BaseFragment
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.fragment_grid.*
 import kotlinx.android.synthetic.main.fragment_grid.view.*
 import javax.inject.Inject
 
@@ -63,19 +66,26 @@ class GridFragment : BaseFragment() {
         val gridObserver = object : Observer<List<UrbanoEvent>> {
             override fun onChanged(urbanoEventList: List<UrbanoEvent>?) {
 
-                view.tvTitle?.setText(urbanoEventList?.get(0)?.title)
+//                view.tvTitle?.setText(urbanoEventList?.get(0)?.title)
             }
         }
 
 
-        view.fab.setOnClickListener { view ->
-
-            gridViewModel.onClickUpdateUrbanoEvent();
-        }
 
         gridViewModel!!.getUrbanoEventList().observe(activity, gridObserver);
 
+        setupRecylerView()
+
         return view;
+    }
+
+    private fun setupRecylerView() {
+
+        val mLayoutManager = LinearLayoutManager(activity);
+        recycler_view.setLayoutManager(mLayoutManager);
+        mAdapter = GridAdapter(myDataset);
+        mRecyclerView.setAdapter(mAdapter);
+
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

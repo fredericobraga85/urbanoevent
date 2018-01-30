@@ -28,19 +28,7 @@ class GridInteractorImpl(val urbanEventRepository: UrbanEventRepository):GridInt
     }
 
 
-    override fun updateUrbanoEvent(title: String): Observable<List<UrbanoEvent>> {
 
-        return  urbanEventRepository.updateUrbanoEvent(title)
-                .flatMap { ue ->
-
-                    var list = listOf(ue)
-                     Observable.just(list)
-
-                }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-
-    }
 
 
 }

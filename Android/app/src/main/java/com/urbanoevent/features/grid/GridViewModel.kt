@@ -41,13 +41,5 @@ class GridViewModel @Inject constructor(
 
     }
 
-    fun onClickUpdateUrbanoEvent() {
-
-        gridInteractor.updateUrbanoEvent( "_teste")
-                .subscribe({
-                    list: List<UrbanoEvent> ->
-                    this.urbanoEventList!!.postValue(list);
-                })
-    }
 
 }

@@ -5,29 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".features.grid.GridFragment">
 
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tvTitle"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:gravity="bottom"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent"/>
 
-
-    <TextView
-        android:id="@+id/tvTeste"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="bottom"
-        android:text="teste" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </FrameLayout>
