@@ -1,6 +1,7 @@
 package com.urbanoevent.model.urbanoevent
 
 import io.reactivex.Observable
+import io.reactivex.ObservableSource
 import javax.inject.Inject
 
 /**
@@ -18,22 +19,22 @@ class UrbanEventRepositoryImpl @Inject constructor(val urbanEventDao: UrbanoEven
         ue1.desc = "Teste1"
 
         var ue2 = UrbanoEvent()
-        ue2.id = 1
+        ue2.id = 2
         ue2.title = "title2"
         ue2.desc = "Teste2"
 
         var ue3 = UrbanoEvent()
-        ue3.id = 1
+        ue3.id = 3
         ue3.title = "title3"
         ue3.desc = "Teste3"
 
         var ue4 = UrbanoEvent()
-        ue4.id = 1
+        ue4.id = 4
         ue4.title = "title4"
         ue4.desc = "Teste4"
 
         var ue5 = UrbanoEvent()
-        ue5.id = 1
+        ue5.id = 5
         ue5.title = "title5"
         ue5.desc = "Teste5"
 
@@ -58,6 +59,38 @@ class UrbanEventRepositoryImpl @Inject constructor(val urbanEventDao: UrbanoEven
         return Observable.just(urbanEventDao.getAll())
     }
 
+    override fun addUrbanoEvent(): Observable<UrbanoEvent> {
+
+        return Observable.just(urbanEventDao.getAll())
+                .flatMap{
+
+                    var newId = 1L
+
+                    if(!it.isEmpty())
+                    {
+                        newId = it.last().id + 1
+                    }
+
+                    var ue = UrbanoEvent()
+                    ue.id = newId
+                    ue.title = "title" + newId
+                    ue.desc = "Teste" + newId
+
+                    urbanEventDao.insert(ue)
+
+                    Observable.just(ue)
+                }
+
+    }
+
+
+    override fun deleteUrbanoEvent(urbanoEvent: UrbanoEvent): Observable<Unit> {
+
+        return Observable.just(urbanEventDao.delete(urbanoEvent))
+
+
+
+    }
 
 
 

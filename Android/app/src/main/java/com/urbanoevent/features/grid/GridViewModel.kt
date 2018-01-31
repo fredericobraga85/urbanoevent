@@ -30,6 +30,24 @@ class GridViewModel @Inject constructor(
     }
 
 
+    fun addUrbanoEvent() {
+
+        gridInteractor.addUrbanoEvent()
+                .subscribe({
+                    ue: UrbanoEvent ->
+                    loadUrbanoEvents()
+                })
+    }
+
+    fun deleteUrbanoEvent(urbanoEvent: UrbanoEvent) {
+
+        gridInteractor.deleteUrbanoEvent(urbanoEvent)
+                .subscribe({
+                    loadUrbanoEvents()
+                })
+
+    }
+
     private fun loadUrbanoEvents() {
 
         gridInteractor
@@ -38,8 +56,9 @@ class GridViewModel @Inject constructor(
                     list: List<UrbanoEvent> ->
                     this.urbanoEventList!!.postValue(list);
                 })
-
     }
+
+
 
 
 }

@@ -19,7 +19,6 @@ import javax.inject.Inject
 class GridInteractorImpl(val urbanEventRepository: UrbanEventRepository):GridInteractor
 {
 
-
     override fun getUrbanEventList(): Observable<List<UrbanoEvent>> {
 
         return  urbanEventRepository.getUrbanEventList()
@@ -28,7 +27,19 @@ class GridInteractorImpl(val urbanEventRepository: UrbanEventRepository):GridInt
     }
 
 
+    override fun addUrbanoEvent(): Observable<UrbanoEvent> {
 
+        return urbanEventRepository.addUrbanoEvent()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    override fun deleteUrbanoEvent(urbanoEvent: UrbanoEvent): Observable<Unit> {
+
+        return urbanEventRepository.deleteUrbanoEvent(urbanoEvent)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
 
 }

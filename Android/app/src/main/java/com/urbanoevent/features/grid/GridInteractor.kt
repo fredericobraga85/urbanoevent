@@ -14,5 +14,7 @@ import javax.inject.Inject
 interface GridInteractor
 {
     fun getUrbanEventList(): Observable<List<UrbanoEvent>>
+    fun addUrbanoEvent(): Observable<UrbanoEvent>
+    fun deleteUrbanoEvent(urbanoEvent: UrbanoEvent): Observable<Unit>
 
 }
