@@ -20,6 +20,6 @@ import dagger.Provides
 @Module
 class GridModule(val fragment: GridFragment) {
 
-    @Provides fun providesGridInteractor(urbanEventRepository: UrbanEventRepository) : GridInteractor = GridInteractorImpl(urbanEventRepository)
+//    @Provides fun providesGridInteractor(urbanEventRepository: UrbanEventRepository) : GridInteractor = GridInteractorImpl(urbanEventRepository)
 
 }

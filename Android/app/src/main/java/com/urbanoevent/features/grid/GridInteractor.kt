@@ -1,11 +1,8 @@
 package com.urbanoevent.features.grid
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.MutableLiveData
-import com.urbanoevent.model.urbanoevent.UrbanEventRepository
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
 import io.reactivex.Observable
-import javax.inject.Inject
+
 
 
 /**

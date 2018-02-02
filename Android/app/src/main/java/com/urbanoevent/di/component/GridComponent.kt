@@ -10,7 +10,7 @@ import javax.inject.Singleton
 /**
  * Created by cinq on 23/01/18.
  */
-@Singleton
+
 @Subcomponent(modules = arrayOf(GridModule::class))
 interface GridComponent {
 

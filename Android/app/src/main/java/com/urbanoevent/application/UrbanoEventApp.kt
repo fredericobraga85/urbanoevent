@@ -17,6 +17,7 @@ class UrbanoEventApp : Application()
                 .build()
     }
 
+
     override fun onCreate() {
         super.onCreate()
         component.inject(this)

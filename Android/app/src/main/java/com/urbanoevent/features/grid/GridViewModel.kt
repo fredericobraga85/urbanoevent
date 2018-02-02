@@ -34,7 +34,7 @@ class GridViewModel @Inject constructor(
 
         gridInteractor.addUrbanoEvent()
                 .subscribe({
-                    ue: UrbanoEvent ->
+                    _: UrbanoEvent ->
                     loadUrbanoEvents()
                 })
     }

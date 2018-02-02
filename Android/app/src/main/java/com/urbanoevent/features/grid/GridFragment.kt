@@ -101,7 +101,7 @@ class GridFragment : BaseFragment() {
             }
         }
 
-        gridViewModel!!.getUrbanoEventList().observe(activity, gridObserver);
+        gridViewModel.getUrbanoEventList().observe(activity, gridObserver);
     }
 
 }

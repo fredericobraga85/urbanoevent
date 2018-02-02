@@ -1,24 +1,27 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion build_versions.target_sdk
+    buildToolsVersion build_versions.build_tools
+
+
     defaultConfig {
         applicationId "com.urbanoevent"
-        minSdkVersion 21
-        targetSdkVersion 26
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,58 +32,65 @@ kapt {
 }
 
 dependencies {
+    // Support libraries
+    implementation deps.support.app_compat
+    implementation deps.support.v4
+    implementation deps.support.design
+    implementation deps.support.recyclerview
+    implementation deps.support.cardview
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //layout
-    compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
+    // Layout
+    implementation deps.constraint_layout
 
+    // Architecture components
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    kapt deps.lifecycle.compiler
+    implementation deps.room.runtime
+    kapt deps.room.compiler
+    implementation deps.room.rxjava2
 
-    // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:1.0.0"
-    kapt "android.arch.lifecycle:compiler:1.0.0"
+    // RxJava
+    implementation deps.rx_android
+    implementation deps.rxjava2
+    implementation deps.rxkotlin2
 
-    // Room
-    implementation "android.arch.persistence.room:runtime:1.0.0"
-    kapt "android.arch.persistence.room:compiler:1.0.0"
+    // Dagger
+    implementation deps.dagger.runtime
+    kapt deps.dagger.compiler
 
-    // Paging
-    implementation "android.arch.paging:runtime:1.0.0-alpha4-1"
+    // Kotlin
+    implementation deps.kotlin.stdlib
 
-    //Dagger
-    compile "com.google.dagger:dagger:2.6"
-    kapt "com.google.dagger:dagger-compiler:2.6"
+    // Dependencies for local unit tests
+    testImplementation deps.junit
+    testImplementation deps.mockito.all
+    testImplementation deps.hamcrest
+    testImplementation deps.arch_core.testing
+    testImplementation deps.kotlin.stdlib
+    testImplementation deps.kotlin.test
 
-    //RXKotlin2
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+    // Android Testing Support Library's runner and rules
+    androidTestCompile deps.atsl.runner
+    androidTestCompile deps.atsl.rules
+    androidTestCompile deps.room.testing
+    androidTestCompile deps.arch_core.testing
 
-    //Gson and AutoValue
-    compile 'com.google.code.gson:gson:2.8.2'
+    // Dependencies for Android unit tests
+    androidTestCompile deps.junit
+    androidTestCompile deps.mockito.core, { exclude group: 'net.bytebuddy' }
+    androidTestCompile deps.dexmaker
 
-    //Support Utils
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    // Espresso UI Testing
+    androidTestCompile deps.espresso.core
+    androidTestCompile deps.espresso.contrib
+    androidTestCompile deps.espresso.intents
 
-    //Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-
-    //Testing Espresso Mockito and Junit
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
-
-    // Test helpers for LiveData
-    testImplementation "android.arch.core:core-testing:1.0.0"
-
-    // Test helpers for Room
-    testImplementation "android.arch.persistence.room:testing:1.0.0"
-
+    // Resolve conflicts between main and test APK:
+    androidTestCompile deps.support.annotations
+    androidTestCompile deps.support.v4
+    androidTestCompile deps.support.app_compat
+    androidTestCompile deps.support.design
 
 }

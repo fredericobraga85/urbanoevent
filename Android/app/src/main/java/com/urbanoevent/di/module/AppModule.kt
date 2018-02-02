@@ -4,6 +4,8 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import com.urbanoevent.application.UrbanoEventApp
 import com.urbanoevent.database.AppDatabase
+import com.urbanoevent.features.grid.GridInteractor
+import com.urbanoevent.features.grid.GridInteractorImpl
 import com.urbanoevent.model.urbanoevent.UrbanEventRepository
 import com.urbanoevent.model.urbanoevent.UrbanEventRepositoryImpl
 import com.urbanoevent.model.urbanoevent.UrbanoEventDAO
@@ -26,6 +28,6 @@ class AppModule(val context: Context) {
 
     @Provides fun providesUrbanEventRepository(urbanEventDao: UrbanoEventDAO): UrbanEventRepository = UrbanEventRepositoryImpl(urbanEventDao)
 
-
+    @Provides fun providesGridInteractor(urbanEventRepository: UrbanEventRepository) : GridInteractor = GridInteractorImpl(urbanEventRepository)
 
 }

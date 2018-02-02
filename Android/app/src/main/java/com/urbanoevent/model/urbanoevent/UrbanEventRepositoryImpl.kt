@@ -59,7 +59,7 @@ class UrbanEventRepositoryImpl @Inject constructor(val urbanEventDao: UrbanoEven
         return Observable.just(urbanEventDao.getAll())
     }
 
-    override fun addUrbanoEvent(): Observable<UrbanoEvent> {
+    override fun addUrbanoEvent(urbanoEvent: UrbanoEvent): Observable<UrbanoEvent> {
 
         return Observable.just(urbanEventDao.getAll())
                 .flatMap{
@@ -71,14 +71,11 @@ class UrbanEventRepositoryImpl @Inject constructor(val urbanEventDao: UrbanoEven
                         newId = it.last().id + 1
                     }
 
-                    var ue = UrbanoEvent()
-                    ue.id = newId
-                    ue.title = "title" + newId
-                    ue.desc = "Teste" + newId
+                    urbanoEvent.id = newId
 
-                    urbanEventDao.insert(ue)
+                    urbanEventDao.insert(urbanoEvent)
 
-                    Observable.just(ue)
+                    Observable.just(urbanoEvent)
                 }
 
     }

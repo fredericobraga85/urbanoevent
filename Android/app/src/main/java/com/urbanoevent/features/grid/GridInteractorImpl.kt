@@ -29,7 +29,12 @@ class GridInteractorImpl(val urbanEventRepository: UrbanEventRepository):GridInt
 
     override fun addUrbanoEvent(): Observable<UrbanoEvent> {
 
-        return urbanEventRepository.addUrbanoEvent()
+        var ue = UrbanoEvent()
+        ue.title = "title_"
+        ue.desc = "desc_"
+
+
+        return urbanEventRepository.addUrbanoEvent(ue)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
