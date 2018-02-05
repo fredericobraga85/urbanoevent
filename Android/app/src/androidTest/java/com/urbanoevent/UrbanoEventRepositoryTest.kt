@@ -3,6 +3,7 @@ package com.urbanoevent
 import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
+import android.util.Log
 import com.urbanoevent.database.AppDatabase
 import com.urbanoevent.model.urbanoevent.UrbanEventRepository
 import com.urbanoevent.model.urbanoevent.UrbanEventRepositoryImpl
@@ -49,9 +50,10 @@ class UrbanoEventRepositoryTest {
         ue.title = "title_" + ue.id
         ue.desc = "desc_" + ue.id
 
-        urbanoEventRepository?.addUrbanoEvent(ue)
+        var resultObs =  urbanoEventRepository?.addUrbanoEvent(ue)
+                ?.flatMap { urbanoEventRepository?.getUrbanEvent(99L) }
 
-        var resultObs = urbanoEventRepository?.getUrbanEvent(99)
+
 
         val testObserver = TestObserver<UrbanoEvent>()
         resultObs?.subscribe(testObserver)
@@ -60,32 +62,9 @@ class UrbanoEventRepositoryTest {
         testObserver.assertValueCount(1)
         val result  = testObserver.values()[0]
 
-        assertEquals(result.title, "deu errado")
+        assertEquals(result.id, 99L)
+        assertEquals(result.title, "title_99")
+        assertEquals(result.desc, "desc_99")
 
     }
-
-//    @Test
-//    fun should_Flush_All_Data(){
-//        foodDao?.flushFoodData()
-//        Assert.assertEquals(foodDao?.getFoodsCount(), 0)
-//    }
-
-//    // Copied from stackoverflow
-//    @Throws(InterruptedException::class)
-//    fun <T> getValue(liveData: LiveData<T>): T {
-//        val data = arrayOfNulls<Any>(1)
-//        val latch = CountDownLatch(1)
-//        val observer = object : Observer<T> {
-//            override fun onChanged(t: T?) {
-//                data[0] = t
-//                latch.countDown()
-//                liveData.removeObserver(this)//To change body of created functions use File | Settings | File Templates.
-//            }
-//
-//        }
-//        liveData.observeForever(observer)
-//        latch.await(2, TimeUnit.SECONDS)
-//
-//        return data[0] as T
-//    }
 }

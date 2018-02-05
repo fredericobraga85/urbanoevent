@@ -27,9 +27,6 @@ android {
     }
 }
 
-kapt {
-    generateStubs = true
-}
 
 dependencies {
     // Support libraries
@@ -70,6 +67,7 @@ dependencies {
     testImplementation deps.arch_core.testing
     testImplementation deps.kotlin.stdlib
     testImplementation deps.kotlin.test
+    testImplementation deps.kotlin.plugin
 
     // Android Testing Support Library's runner and rules
     androidTestCompile deps.atsl.runner
