@@ -36,9 +36,13 @@ dependencies {
     implementation deps.support.recyclerview
     implementation deps.support.cardview
 
-
     // Layout
     implementation deps.constraint_layout
+    implementation(deps.glide) {
+        exclude group: "com.android.support"
+    }
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    kapt deps.glide_compiler
 
     // Architecture components
     implementation deps.lifecycle.runtime

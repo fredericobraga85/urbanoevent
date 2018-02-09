@@ -15,6 +15,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
 import com.urbanoevent.application.BaseFragment
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
+import com.urbanoevent.utils.AppNavigatorUtils
 import kotlinx.android.synthetic.main.fragment_grid.view.*
 import javax.inject.Inject
 
@@ -30,7 +31,7 @@ import javax.inject.Inject
 class GridFragment : BaseFragment() {
 
     val app: UrbanoEventApp
-        get() = activity.application as UrbanoEventApp
+        get() = activity!!.application as UrbanoEventApp
 
     val component by lazy { app.component.plus(GridModule(this)) }
 
@@ -45,11 +46,11 @@ class GridFragment : BaseFragment() {
 
         component.inject(this)
 
-        gridViewModel =  ViewModelProviders.of(activity, viewModelFactory).get(GridViewModel::class.java)
+        gridViewModel =  ViewModelProviders.of(activity!!, viewModelFactory).get(GridViewModel::class.java)
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         val view = inflater!!.inflate(R.layout.fragment_grid, container, false)
@@ -69,12 +70,13 @@ class GridFragment : BaseFragment() {
     }
 
 
-
-
     private fun populateList(urbanoEventList: List<UrbanoEvent>?)
     {
         if(view?.recycler_view?.adapter == null) {
                 adapter = GridAdapter(urbanoEventList) {
+
+//                    onClickItem(it)
+
                     onClickDelete(it)
                 }
 
@@ -86,13 +88,19 @@ class GridFragment : BaseFragment() {
         }
     }
 
+    private fun onClickItem(it: UrbanoEvent) {
+
+            AppNavigatorUtils.openDetailUrbanoEventActivity(activity, it)
+
+    }
+
     private fun onClickDelete(urbanoEvent: UrbanoEvent) {
 
         gridViewModel.deleteUrbanoEvent(urbanoEvent)
 
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val gridObserver = object : Observer<List<UrbanoEvent>> {
@@ -101,7 +109,7 @@ class GridFragment : BaseFragment() {
             }
         }
 
-        gridViewModel.getUrbanoEventList().observe(activity, gridObserver);
+        gridViewModel.getUrbanoEventList().observe(activity!!, gridObserver);
     }
 
 }

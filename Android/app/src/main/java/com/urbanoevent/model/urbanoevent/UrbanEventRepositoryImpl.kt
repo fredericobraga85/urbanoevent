@@ -13,37 +13,28 @@ class UrbanEventRepositoryImpl @Inject constructor(val urbanEventDao: UrbanoEven
 
     init{
 
-        var ue1 = UrbanoEvent()
-        ue1.id = 1
-        ue1.title = "title1"
-        ue1.desc = "Teste1"
-
-        var ue2 = UrbanoEvent()
-        ue2.id = 2
-        ue2.title = "title2"
-        ue2.desc = "Teste2"
-
-        var ue3 = UrbanoEvent()
-        ue3.id = 3
-        ue3.title = "title3"
-        ue3.desc = "Teste3"
-
-        var ue4 = UrbanoEvent()
-        ue4.id = 4
-        ue4.title = "title4"
-        ue4.desc = "Teste4"
-
-        var ue5 = UrbanoEvent()
-        ue5.id = 5
-        ue5.title = "title5"
-        ue5.desc = "Teste5"
+        val imgUrlList = listOf(
+                "https://storage.alboom.ninja/sites/42/albuns/17013/gisele-agata---ricardo-agata---agata-eventos---taboo-eventos---corporativo---petrobras---brmania---stockcar---curitiba--2.jpg",
+                "http://www.urbs.curitiba.pr.gov.br/uploads/fotoTurismo/grande/0a26373d98495bb452c0194e4ec4dcabb9057606.jpg",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYKQU8l4GI7eWKr2sTVmJfXTrcj9h9KRRVFGBM0EG1ZiDnKnNB1Q",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmkpEEOi9ZzFFhnqDASoHWpNaDAPif2ETGySbzXOOxWstIITOd",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWgnSzkEch9QRKW8YReyec0lwAPe5XzGtMlWs4giRrKQoAgWf31A",
+                "http://www.bonde.com.br/img/bondenews/2013/01/img_1_44_5113.jpg",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2K5eEDWOvJRsNoViSxdzZczy2JibAWNW46B0ccLmTX6aThRdf",
+                "https://gds.portal5g-media.com/contentFiles/system/pictures/2014/4/113122/original/arena3.jpg")
 
 
-        urbanEventDao.insert(ue1)
-        urbanEventDao.insert(ue2)
-        urbanEventDao.insert(ue3)
-        urbanEventDao.insert(ue4)
-        urbanEventDao.insert(ue5)
+        for (i in 0..10)
+        {
+            var ue = UrbanoEvent()
+            ue.id = i.toLong()
+            ue.title = "title_" + i
+            ue.desc = "Teste" + i
+            ue.imageUrl = imgUrlList.get((i + imgUrlList.size) % imgUrlList.size)
+
+            urbanEventDao.insert(ue)
+
+        }
 
     }
 

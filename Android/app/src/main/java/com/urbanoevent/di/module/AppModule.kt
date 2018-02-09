@@ -22,7 +22,7 @@ class AppModule(val context: Context) {
     @Provides @Singleton fun providesAppContext() = context
 
     @Provides @Singleton fun providesAppDatabase(context: Context):
-            AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "urban_event_db").allowMainThreadQueries().build()
+            AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "urban_event_db").allowMainThreadQueries().fallbackToDestructiveMigration().build()
 
     @Provides fun providesUrbanEventDao(database: AppDatabase): UrbanoEventDAO = database.urbanoEventDao()
 

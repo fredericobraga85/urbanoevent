@@ -19,7 +19,10 @@ data class UrbanoEvent(
 
 
         @ColumnInfo(name = "desc")
-        var desc: String? = null
+        var desc: String? = null,
+
+        @ColumnInfo(name = "imageUrl")
+        var imageUrl: String? = null
 )
 
 
