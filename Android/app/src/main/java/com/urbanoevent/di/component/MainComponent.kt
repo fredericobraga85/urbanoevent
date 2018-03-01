@@ -3,6 +3,7 @@ package com.urbanoevent.di.component
 import com.urbanoevent.application.MainActivity
 import com.urbanoevent.di.module.GridModule
 import com.urbanoevent.di.module.MainModule
+import com.urbanoevent.features.detailsUrbanoEvent.DetailUrbanoEventActivity
 import com.urbanoevent.features.grid.GridFragment
 import dagger.Component
 import dagger.Subcomponent
@@ -16,5 +17,6 @@ import javax.inject.Singleton
 interface MainComponent {
 
     fun inject(activity: MainActivity)
+
 
 }

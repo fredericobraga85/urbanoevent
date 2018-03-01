@@ -18,6 +18,7 @@ import dagger.Provides
  * Created by cinq on 23/01/18.
  */
 import android.arch.lifecycle.ViewModel
+import com.urbanoevent.features.detailsUrbanoEvent.DetailUrbanoEventViewModel
 import dagger.multibindings.IntoMap
 
 @Module
@@ -29,6 +30,13 @@ abstract class ViewModelModule {
     @ViewModelKey( GridViewModel::class )
     // Bind your View Model here
     abstract fun bindMainViewModel( gridViewModel: GridViewModel ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey( DetailUrbanoEventViewModel::class )
+    // Bind your View Model here
+    abstract fun bindDetailUrbanoEventViewModel( detailUrbanoEventViewModel: DetailUrbanoEventViewModel ): ViewModel
+
 
     @Binds
     abstract fun bindViewModelFactory( factory: ViewModelFactory):

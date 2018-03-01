@@ -13,11 +13,17 @@ import com.urbanoevent.application.UrbanoEventApp
 import com.urbanoevent.di.module.GridModule
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.ImageView
 import com.urbanoevent.application.BaseFragment
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
 import com.urbanoevent.utils.AppNavigatorUtils
 import kotlinx.android.synthetic.main.fragment_grid.view.*
 import javax.inject.Inject
+import com.urbanoevent.R.id.imageView
+import android.support.v4.view.ViewCompat
+import android.support.v4.app.ActivityOptionsCompat
+
+
 
 
 /**
@@ -73,11 +79,10 @@ class GridFragment : BaseFragment() {
     private fun populateList(urbanoEventList: List<UrbanoEvent>?)
     {
         if(view?.recycler_view?.adapter == null) {
-                adapter = GridAdapter(urbanoEventList) {
+                adapter = GridAdapter(urbanoEventList) { urbanoEvent: UrbanoEvent, imageView: ImageView ->
 
-//                    onClickItem(it)
+                    onClickItem(urbanoEvent, imageView)
 
-                    onClickDelete(it)
                 }
 
             view?.recycler_view?.adapter = adapter;
@@ -88,9 +93,13 @@ class GridFragment : BaseFragment() {
         }
     }
 
-    private fun onClickItem(it: UrbanoEvent) {
+    private fun onClickItem(urbanoEvent: UrbanoEvent, imageView: ImageView) {
 
-            AppNavigatorUtils.openDetailUrbanoEventActivity(activity, it)
+             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                imageView,
+                ViewCompat.getTransitionName(imageView))
+
+            AppNavigatorUtils.openDetailUrbanoEventActivity(activity, urbanoEvent.id, options)
 
     }
 

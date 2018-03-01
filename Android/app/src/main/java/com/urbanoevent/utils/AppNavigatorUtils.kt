@@ -8,7 +8,12 @@ import com.urbanoevent.model.urbanoevent.UrbanoEvent
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.app.ActivityOptionsCompat
 import android.content.Intent
+import android.view.View
 import com.urbanoevent.features.detailsUrbanoEvent.DetailUrbanoEventActivity
+import com.urbanoevent.R.id.imageView
+import android.support.v4.view.ViewCompat
+
+
 
 
 /**
@@ -24,14 +29,13 @@ class AppNavigatorUtils
             activity.getSupportFragmentManager().beginTransaction().replace(idFrame, fragment).commit()
         }
 
-        fun openDetailUrbanoEventActivity(context: Context, urbanoEvent: UrbanoEvent) {
+        fun openDetailUrbanoEventActivity(context: Context, id: Long, options: ActivityOptionsCompat?) {
 
 //            https@ //github.com/codepath/android_guides/wiki/Shared-Element-Activity-Transition
 
-//            val intent = Intent(context, DetailUrbanoEventActivity::class.java)
-//            intent.putExtra(DetailUrbanoEventActivity.EXTRA_URBANOEVENT, urbanoEvent)
-//            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, ivProfile as View, "profile")
-//            startActivity(intent, options.toBundle())
+            val intent = Intent(context, DetailUrbanoEventActivity::class.java)
+            intent.putExtra(DetailUrbanoEventActivity.EXTRA_URBANOEVENT_ID, id)
+            startActivity(context, intent, options?.toBundle());
         }
 
     }

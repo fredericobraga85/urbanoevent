@@ -25,7 +25,7 @@
                 android:id="@+id/imgView"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:transitionName="imgView"
+                android:transitionName="simple_activity_transition"
                 tools:ignore="UnusedAttribute" />
 
             <LinearLayout

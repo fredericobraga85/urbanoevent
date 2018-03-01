@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.detailsUrbanoEvent.DetailUrbanoEventActivity"></activity>
+        <activity android:name=".features.detailsUrbanoEvent.DetailUrbanoEventActivity" />
     </application>
 
 </manifest>
