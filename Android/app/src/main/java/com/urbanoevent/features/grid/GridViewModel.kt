@@ -1,11 +1,15 @@
 package com.urbanoevent.features.grid
 
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.paging.PagedList
 import com.urbanoevent.application.BaseViewModel
 
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
 import javax.inject.Inject
+import android.arch.paging.LivePagedListBuilder
+import android.nfc.tech.MifareUltralight.PAGE_SIZE
 
 
 /**
@@ -18,7 +22,22 @@ class GridViewModel @Inject constructor(
     private var urbanoEventList: MutableLiveData<List<UrbanoEvent>>? = null
 
 
-    fun getUrbanoEventList(): MutableLiveData<List<UrbanoEvent>> {
+    companion object {
+
+        private const val PAGE_SIZE = 30
+        private const val ENABLE_PLACEHOLDERS = true
+    }
+
+
+
+    val urbanoEventPagedList = LivePagedListBuilder(gridInteractor.getPagedUrbanoEventList(), PagedList.Config.Builder()
+            .setPageSize(PAGE_SIZE)
+            .setEnablePlaceholders(ENABLE_PLACEHOLDERS)
+            .build()).build()
+
+
+
+    fun getUrbanoEventList(): MutableLiveData<List<UrbanoEvent>>? {
 
         if (urbanoEventList == null) {
             urbanoEventList =  MutableLiveData<List<UrbanoEvent>>();
@@ -26,7 +45,7 @@ class GridViewModel @Inject constructor(
             loadUrbanoEvents();
         }
 
-        return urbanoEventList!!
+        return urbanoEventList
     }
 
 
@@ -35,7 +54,7 @@ class GridViewModel @Inject constructor(
         gridInteractor.addUrbanoEvent()
                 .subscribe({
                     _: UrbanoEvent ->
-                    loadUrbanoEvents()
+//                    loadUrbanoEvents()
                 })
     }
 
@@ -43,7 +62,7 @@ class GridViewModel @Inject constructor(
 
         gridInteractor.deleteUrbanoEvent(urbanoEvent)
                 .subscribe({
-                    loadUrbanoEvents()
+//                    loadUrbanoEvents()
                 })
 
     }
@@ -54,7 +73,7 @@ class GridViewModel @Inject constructor(
                 .getUrbanEventList()
                 .subscribe({
                     list: List<UrbanoEvent> ->
-                    this.urbanoEventList!!.postValue(list);
+                    this.urbanoEventList?.postValue(list);
                 })
     }
 

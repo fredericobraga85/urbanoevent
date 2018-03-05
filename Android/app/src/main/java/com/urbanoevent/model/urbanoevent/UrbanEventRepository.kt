@@ -1,5 +1,6 @@
 package com.urbanoevent.model.urbanoevent
 
+import android.arch.paging.DataSource
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
 import io.reactivex.Observable
 
@@ -12,5 +13,9 @@ interface UrbanEventRepository
     fun getUrbanEventList(): Observable<List<UrbanoEvent>>
     fun addUrbanoEvent(urbanoEvent: UrbanoEvent): Observable<UrbanoEvent>
     fun deleteUrbanoEvent(urbanoEvent: UrbanoEvent): Observable<Unit>
+
+
+    fun getPagedUrbanoEventList(): DataSource.Factory<Int, UrbanoEvent>
+
 
 }

@@ -17,7 +17,6 @@ data class UrbanoEvent(
         @ColumnInfo(name = "title")
         var title: String? = null,
 
-
         @ColumnInfo(name = "desc")
         var desc: String? = null,
 

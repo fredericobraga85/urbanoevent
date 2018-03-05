@@ -51,6 +51,7 @@ dependencies {
     implementation deps.room.runtime
     kapt deps.room.compiler
     implementation deps.room.rxjava2
+    implementation deps.paging
 
     // RxJava
     implementation deps.rx_android
@@ -63,6 +64,9 @@ dependencies {
 
     // Kotlin
     implementation deps.kotlin.stdlib
+
+    //Logs
+    implementation deps.timber
 
     // Dependencies for local unit tests
     testImplementation deps.junit

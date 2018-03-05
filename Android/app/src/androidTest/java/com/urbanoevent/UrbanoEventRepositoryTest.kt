@@ -3,21 +3,16 @@ package com.urbanoevent
 import android.arch.persistence.room.Room
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import android.util.Log
-import com.urbanoevent.database.AppDatabase
+import com.urbanoevent.database.RoomDB
 import com.urbanoevent.model.urbanoevent.UrbanEventRepository
 import com.urbanoevent.model.urbanoevent.UrbanEventRepositoryImpl
 import com.urbanoevent.model.urbanoevent.UrbanoEvent
 import io.reactivex.observers.TestObserver
-import io.reactivex.subscribers.TestSubscriber
 import junit.framework.Assert.assertEquals
 import org.junit.After
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
-import java.util.concurrent.TimeUnit
 
 /**
  * Created by cinq on 31/01/18.
@@ -33,8 +28,7 @@ class UrbanoEventRepositoryTest {
 
         val c = InstrumentationRegistry.getTargetContext()
 
-        val database = Room.databaseBuilder(c, AppDatabase::class.java, "urban_event_db").allowMainThreadQueries().build()
-        urbanoEventRepository = UrbanEventRepositoryImpl(database.urbanoEventDao())
+        urbanoEventRepository = UrbanEventRepositoryImpl(c)
     }
 
     @After
